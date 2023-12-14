@@ -1,0 +1,373 @@
+/**
+*Assignment: Lab 6
+*/
+package Java1;
+
+import java.util.Scanner;
+public class Driver {
+
+	//Scanner object
+	static Scanner sc = new Scanner(System.in);
+
+	public static void main(String[] args) {
+
+    	//The driver program should call a void method to display 
+        //a welcome message. 
+        welcomeMessage();
+        
+    	//Empty Objects
+    	Customer myGuestCustomer = new Customer();
+    	Commercial myCommCustomer = new Commercial();
+    	Individual myIndivCustomer = new Individual();
+    	
+    	//Constants
+    	final int COMMERCIAL = 2;
+    	final int INDIVIDUAL = 1;
+    	final int GUEST = 3;
+ 
+    	
+    	//Gets initial customer information
+    	System.out.println("Enter your customer information:");
+    	//Customer name
+    	System.out.println("Please enter your name: ");
+    	String name = sc.nextLine();
+    	
+    	//Customer email
+    	System.out.println("Please enter your email: ");
+    	String email = sc.nextLine();
+    	
+    	//Customer phone number
+    	System.out.println("Please enter your phone number: ");
+    	String phone = sc.nextLine();
+    	
+    	//Customer type 
+    	System.out.println("\nWhat type of customer are you?");
+    	System.out.println("\t1. Private Customer\n\t2. Commercial Customer\n\t3. Guest");
+    	System.out.println("Enter customer type:");
+    	int customerType = Integer.parseInt(sc.nextLine());
+    	
+    	//If the customer is a commercial customer display
+    	if (customerType == COMMERCIAL) {
+    		
+    		System.out.println("\nPlease enter your account Number: ");
+    		String accntNum = sc.nextLine();    
+
+    		System.out.println("\n\nPlease enter in your account type: ");
+    		String accntType = sc.nextLine();
+    		
+    		System.out.println(myCommCustomer);
+    		
+    		//If the customer is private display
+    	} else if (customerType == INDIVIDUAL) {
+    		System.out.println("Please enter your account Number");
+    		String accntNum = sc.nextLine();
+    		
+    		System.out.println("\n\nPlease enter in your credit card type");
+    		String accntType = sc.nextLine();
+    		
+    		System.out.println("Please enter in your credit card Number");
+    		String creditNum = sc.nextLine();    
+
+    		System.out.println("Please enter in your credit card expiration month");
+    		int creditMon = Integer.parseInt(sc.nextLine());
+    		
+    		System.out.println("Please enter in your credit card expiration year");
+    		int creditYear = Integer.parseInt(sc.nextLine());
+    		
+    		if (creditYear > 2030 || creditYear < 2010) {
+    			boolean update = true;
+    		}
+    		else {
+    			boolean update = false;
+    		}
+    		
+    		myIndivCustomer = new Individual (name, email, phone, 
+    				accntNum, accntType, creditNum, creditMon, creditYear);
+    		
+    		System.out.println(myIndivCustomer);
+    		
+    		//Else is the customer is a guest display
+    	} else if (customerType == GUEST){
+    		
+    		myGuestCustomer = new Customer (name, email, phone);
+    		
+    		System.out.println(myGuestCustomer);
+    	}	
+    	
+            Table[] tables = new Table[10];
+            int tableCount = 0;
+            Table table = null;
+
+            int choice = 0, materialChoice = 0;
+            double length = 0, width = 0, area = 0, diameter = 0, 
+            		shortBase = 0, longBase = 0, height = 0;
+            
+            while (choice != 4 && tableCount < 10) {
+                //The driver program should call an integer method to 
+            	//display a menu of the shapes of the table
+            	choice = displayeMenu();
+                    table = new Table();
+                    
+                    //Switch statement
+                    switch (choice) {
+                    case 1://Rectangular
+                            do {
+                                    System.out.print("Enter the length of the table "
+                                    		+ "(in inches): ");
+                                    length = sc.nextDouble();
+                                    if (length < 0)
+                                            System.out.println("Enter valid length");
+                            } while (length < 0);
+                            do {
+                                    System.out.print("Enter the width of the table (in inches): ");
+                                    width = sc.nextDouble();
+                                    if (width < 0)
+                                            System.out.println("Enter valid width");
+                            } while (width < 0);
+
+                            area = calculateArea(length, width);
+                            table.setArea(area);
+                            table.setShape("Rectangular");
+                            break;
+                    case 2://Circular
+                            do {
+                                    System.out.print("Enter the diameter of the "
+                                    		+ "table (in inches): ");
+                                    diameter = sc.nextDouble();
+                                    if (diameter < 0)
+                                            System.out.println("Please enter "
+                                            		+ "valid diameter");
+                            } while (diameter < 0);
+
+                            area = calculateArea(diameter);
+                            table.setArea(area);
+                            table.setShape("Circular");
+                            break;
+                    case 3://Trapezoid
+                            do {
+                                    System.out.print("Enter the short base of the table "
+                                    		+ "(in inches): ");
+                                    shortBase = sc.nextDouble();
+                                    if (shortBase < 0) {
+                                            System.out.println("Please Enter Valid "
+                                            		+ "short base.");
+                                    }
+                            } while (shortBase < 0);
+                            do {
+                                    System.out.print("Enter the long base of the "
+                                    		+ "table (in inches): ");
+                                    longBase = sc.nextDouble();
+                                    if (longBase < 0) {
+                                            System.out.println("Please Enter Valid "
+                                            		+ "long base.");
+                                    }
+                            } while (longBase < 0);
+                            do {
+                                    System.out.print("Enter the hieght of the table "
+                                    		+ "(in inches): ");
+                                    height = sc.nextDouble();
+                                    if (height < 0) {
+                                            System.out.println("Please Enter Valid "
+                                            		+ "short base.");
+                                    }
+                            } while (height < 0);
+
+                            area = calculateArea(shortBase, longBase, height);
+                            table.setArea(area);
+                            table.setShape("Trapezoid");
+                    }
+                    if (choice == 1 || choice == 2 || choice == 3) {
+                            materialChoice = displayMaterial();
+                            if (materialChoice == 1)
+                                    table.setMaterial("Laminate");
+                            else
+                                    table.setMaterial("Oak");
+
+                            tables[tableCount++] = table;
+                    }
+            }
+
+            outputReport(tables, tableCount, materialChoice, myGuestCustomer, myCommCustomer, myIndivCustomer);
+            double totalCost = calculateTotalCost(tables, tableCount);
+            finalOutputReport(totalCost, tableCount);
+
+            sc.close();
+    }
+
+    //The method for the final output report will display
+    private static void finalOutputReport(double totalCost, int tableCount) {
+
+            System.out.println("\n");
+            if (tableCount > 1) {
+                    System.out.printf("The total cost of the %d tables you"
+                    		+ " estimated is %.02f\n", tableCount, totalCost);
+            } else {
+                    System.out.printf("The total cost of the table you "
+                    		+ "estimated is %.02f\n", totalCost);
+            }
+
+            double discount = calculateDiscount(totalCost);
+            if (discount > 0) {
+                    System.out.printf("Your discount is $%.02f\n", discount);
+                    System.out.printf("Your final total is $%.02f\n", totalCost - discount);
+            }
+
+            System.out.println(" ");
+            System.out.println("Thank you for using the table cost "
+            		+ "estimation program!");
+            System.out.println("GoodBye!!!");
+
+    }
+
+    //Double method 1
+    private static double calculateDiscount(double totalCost) {
+
+            if (totalCost < 1000) {
+                    return 0;
+            } else if (totalCost < 3000) {
+                    return totalCost * 0.05;
+            } else
+                    return totalCost * 0.1;
+    }
+
+    //Double method 2
+    private static double calculateTotalCost(Table[] tables, int tableCount) {
+
+            double cost = 0;
+            for (int i = 0; i < tableCount; i++) {
+
+                    cost += tables[i].calculateCost();
+            }
+            return cost;
+    }
+
+    //Display output report
+    private static void outputReport(Table[] tables, int tableCount, int customerType, 
+    		Customer myGuestCustomer, Commercial myCommCustomer, Individual myIndivCustomer) {
+
+            System.out.println("\t\tOutput Report");
+            System.out.println("\t\t-------------");
+            
+            System.out.println(" ");
+
+            //If the user chooses customer 2, display
+            if (customerType == 2) {
+            	System.out.println("Name: " + myCommCustomer.getName());
+            	System.out.println("Email: " + myCommCustomer.getEmail());
+            	System.out.println("Phone number:"+ myCommCustomer.getPhoneNumber());
+            	System.out.println("Account number: " + myCommCustomer.getAcctNum());
+            	System.out.println("Account type: " + myCommCustomer.getAcctType());
+            }
+            
+            //If the user chooses customer 1, display
+            if (customerType == 1) {
+            	System.out.println("Name: " + myIndivCustomer.getName());
+            	System.out.println("Email: " + myIndivCustomer.getEmail());
+            	System.out.println("Phone number: " + myIndivCustomer.getPhoneNumber());
+            	System.out.println("Account number: " + myIndivCustomer.getAccNum());
+            	System.out.println("Credit card type: " + myIndivCustomer.getCreditCardType());
+            	System.out.println("Credit card number: " + myIndivCustomer.getCreditCardNumber());
+            	System.out.println("Credit card expiration month: " + myIndivCustomer.expiryMonth());
+            	System.out.println("Credit card epiraiton year: " + myIndivCustomer.expiryYear());
+            	
+            }
+           
+            //If the user chooses customer 3, display
+            if (customerType == 3) {
+            	System.out.println("Name: " + myGuestCustomer.getName());
+            	System.out.println("Email: " + myGuestCustomer.getEmail());
+            	System.out.println("Phone number: " + myGuestCustomer.getPhoneNumber());
+            }
+            
+            for (int i = 0; i < tableCount; i++) {
+                    System.out.println("Table " + (i + 1) + ":");
+                    System.out.printf("\tThe area of the %s table is %.02f "
+                    		+ "square inches\n", tables[i].getShape(),
+                                    tables[i].getArea());
+                    System.out.println("\tThe table will be made of " 
+                                    + tables[i].getMaterial());
+                    System.out.printf("\tThe cost of this table is $%.02f\n", 
+                    		tables[i].calculateCost());
+                    System.out.println("\tThe table will accomodate " + 
+                    		tables[i].numOfChairs() + " chairs");
+                    System.out.printf("\tThe %d chairs will cost $%.02f\n", 
+                    		tables[i].numOfChairs(),
+                              CalculateChairsCost(tables[i].numOfChairs(), 
+                            		  tables[i].getMaterial()));
+            }
+    }
+
+    //Extra credit chairs
+    private static double CalculateChairsCost(int i, String string) {
+
+            double material = 495 * i;
+            if (string.equalsIgnoreCase("Laminate")) {
+                    return material * 0.125;
+            }
+            return material * 0.25;
+    }
+
+    //Method for material 
+    private static int displayMaterial() {
+
+            int choice;
+            do {
+                    System.out.println("What type of material do you want to use?");
+                    System.out.println("\t1. Laminate ($0.125 per square inch)");
+                    System.out.println("\t2. Oak ($0.25 per square inch)");
+                    System.out.print("Enter menu entry: ");
+                    choice = sc.nextInt();
+                    if (choice < 1 || choice > 2)
+                            System.out.println("Please enter valid choice");
+            } while (choice < 1 || choice > 2);
+            return choice;
+    }
+
+    //OVERLOADED method to calculate the total area 
+    private static double calculateArea(double shortBase, double longBase, double height) {
+            return ((shortBase + longBase) / 2) * height;
+    }
+
+    //OVERLOADED method to calculate the total area 
+    private static double calculateArea(double diameter) {
+            return Math.PI * (diameter / 2) * (diameter / 2);
+    }
+
+    //OVERLOADED method to calculate the total area 
+    private static double calculateArea(double length, double width) {
+            return length * width;
+    }
+
+    //The menu should display Rectangular, Circular, Trapezoid and End Program
+    private static int displayeMenu() {
+
+            int choice = 0;
+            while (choice < 1 || choice > 4) {
+                    System.out.println("\nWhat shape of table you wish to build?");
+                    System.out.println("\t1. Rectangular");
+                    System.out.println("\t2. Circular");
+                    System.out.println("\t3. Trapezoid");
+                    System.out.println("\t4. End Program");
+                    System.out.print("Enter Menu Entry: ");
+                    choice = sc.nextInt();
+
+                    //The method must assure that the menu item entered is valid
+                    if (choice < 1 || choice > 4) {
+                            System.out.println("\nPlease enter an valid choice.");
+                    }
+            }
+            //The method returns the entry to main
+            return choice;
+    }
+
+    //Welcome message
+    private static void welcomeMessage() {
+
+            System.out.println("Welcome to Tables are Us - Your One Stop "
+            		+ "Table Shop");
+            System.out.println("Bryan Moody - Master Table Builder\n\n");
+    }
+		
+
+}
+
