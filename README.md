@@ -1,1 +1,1 @@
-This repository includes some of the projects that I have worked on thoughout the years. It inlcludes an entire SQL project, a project in C++, and a Python project. It it meant to show the range of my capabilities and proficiency in different languages.
+This is the repository of my SQL project
