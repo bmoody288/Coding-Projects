@@ -1,2 +1,1 @@
-# Computer-Science
-This showcases the computer science projects that I had to do. These projects are all in the programming language of C++
+This repository includes some of the projects that I have worked on thoughout the years. It inlcludes an entire SQL project, a project in C++, and a Python project. It it meant to show the range of my capabilities and proficiency in different languages.
